@@ -33,6 +33,17 @@
                                         @enderror
                                     </div>
                                     <div class="form-group mb-3">
+                                        <label for="username">Username</label>
+                                        <input type="text" class="form-control @error('username') is-invalid @enderror"
+                                            id="username" name="username" value="{{ old('username') }}" autocomplete="off">
+
+                                        @error('username')
+                                            <span class="invalid-feedback">
+                                                {{ $message }}
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group mb-3">
                                         <label for="email">Email</label>
                                         <input type="email" class="form-control @error('email') is-invalid @enderror"
                                             id="email" name="email" value="{{ old('email') }}" autocomplete="off">

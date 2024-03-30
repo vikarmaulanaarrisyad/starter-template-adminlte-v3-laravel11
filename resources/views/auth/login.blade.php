@@ -22,12 +22,12 @@
                                     @csrf
 
                                     <div class="form-group mb-3">
-                                        <label for="email">Email</label>
-                                        <input type="email" class="form-control @error('email') is-invalid @enderror"
-                                            id="email" name="email" value="{{ old('email') }}" autocomplete="off"
+                                        <label for="auth">Username</label>
+                                        <input type="text" class="form-control @error('auth') is-invalid @enderror"
+                                            id="auth" name="auth" value="{{ old('auth') }}" autocomplete="off"
                                             onfocus=this.value=''>
 
-                                        @error('email')
+                                        @error('auth')
                                             <span class="invalid-feedback">
                                                 {{ $message }}
                                             </span>
@@ -91,10 +91,10 @@
 
         // Fungsi untuk login
         function login() {
-            let username = $('#email').val();
+            let auth = $('#auth').val();
             let password = $('.password').val();
 
-            if (!username) {
+            if (!auth) {
                 toastr.info('Emsil wajib diisi');
                 return;
             }

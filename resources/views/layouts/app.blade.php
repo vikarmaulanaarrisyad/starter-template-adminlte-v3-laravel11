@@ -8,7 +8,7 @@
 
     <title>{{ $setting->company_name }} - @yield('title')</title>
 
-    <link rel="icon" href="{{ url($setting->path_image ?? '') }}" type="image/*">
+    <link rel="icon" href="{{ Storage::url($setting->path_image ?? '') }}" type="image/*">
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -24,11 +24,13 @@
     <link rel="stylesheet" href="{{ asset('/AdminLTE/plugins/jqvmap/jqvmap.min.css') }}">
     <!-- overlayScrollbars -->
     <link rel="stylesheet" href="{{ asset('/AdminLTE/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
-
+    <!-- SweetAler2 -->
+    <link rel="stylesheet" href="{{ asset('/AdminLTE/plugins/sweetalert2/sweetalert2.min.css') }}">
     @stack('css_vendor')
 
     <!-- Theme style -->
-    <link rel="stylesheet" href="{{ asset('/AdminLTE/dist/css/adminlte.min.css') }}">
+    {{--  <link rel="stylesheet" href="{{ asset('/AdminLTE/dist/css/adminlte.min.css') }}">  --}}
+    <link rel="stylesheet" href="{{ asset('AdminLTE/dist/css/adminlte.min.css?v=3.2.0') }}">
 
     <style>
         .note-editor {
@@ -131,11 +133,15 @@
 
     <!-- overlayScrollbars -->
     <script src="{{ asset('/AdminLTE/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
+    <!-- sweetalert2 -->
+    <script src="{{ asset('/AdminLTE/plugins/sweetalert2/sweetalert2.all.min.js') }}"></script>
 
     @stack('scripts_vendor')
 
     <!-- AdminLTE App -->
-    <script src="{{ asset('/AdminLTE/dist/js/adminlte.js') }}"></script>
+    <script src="{{ asset('AdminLTE/dist/js/adminlte.js?v=3.2.0') }}"></script>
+    <script src="{{ asset('AdminLTE/dist/js/pages/dashboard.js') }}"></script>
+
     <script src="{{ asset('/js/custom.js') }}"></script>
 
     <x-toast />

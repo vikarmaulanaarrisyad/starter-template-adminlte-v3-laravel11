@@ -41,67 +41,17 @@
                 </li>
                 <li class="nav-header">MASTER</li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link {{ request()->is('admin/category*') ? 'active' : '' }}">
+                    <a href="#" class="nav-link {{ request()->is('page*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-cube"></i>
                         <p>
-                            Kategori
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-header">MASTER</li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link {{ request()->is('admin/campaign*') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-folder"></i>
-                        <p>
-                            Projek
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-header">REFERENSI</li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link {{ request()->is('admin/donatur*') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-user-plus"></i>
-                        <p>
-                            Donatur
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link {{ request()->is('admin/donation*') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-donate"></i>
-                        <p>
-                            Daftar Donasi
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link {{ request()->is('admin/cashout*') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-hand-holding-usd"></i>
-                        <p>
-                            Daftar Pencairan
+                            Page
                         </p>
                     </a>
                 </li>
 
-                <li class="nav-item">
-                    <a href="#" class="nav-link {{ request()->is('admin/contact*') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-envelope"></i>
-                        <p>
-                            Kontak Masuk
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#}" class="nav-link {{ request()->is('admin/subscriber*') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-user-plus"></i>
-                        <p>
-                            Subscriber
-                        </p>
-                    </a>
-                </li>
                 <li class="nav-header">REPORT</li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link {{ request()->is('admin/report*') ? 'active' : '' }}">
+                    <a href="#" class="nav-link {{ request()->is('report*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-file-pdf"></i>
                         <p>
                             Laporan
@@ -109,9 +59,9 @@
                     </a>
                 </li>
 
-                <li class="nav-header">SISTEM</li>
+                <li class="nav-header">PENGATURAN APLIKASI</li>
                 <li class="nav-item">
-                    <a href="" class="nav-link {{ request()->is('admin/setting*') ? 'active' : '' }}">
+                    <a href="" class="nav-link {{ request()->is('setting*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-cogs"></i>
                         <p>
                             Pengaturan

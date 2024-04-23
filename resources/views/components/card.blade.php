@@ -1,4 +1,4 @@
-<div {{ $attributes->merge(['class' => 'card card-primary card-outline']) }}>
+<div {{ $attributes->merge(['class' => 'card']) }}>
     @isset($header)
         <div class="card-header">
             {{ $header }}

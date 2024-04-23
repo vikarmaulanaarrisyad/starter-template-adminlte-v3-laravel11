@@ -8,5 +8,5 @@
 @endsection
 
 @section('content')
-    @includeIf('dashboard.small_box');
+    @includeIf('dashboard.small_box')
 @endsection

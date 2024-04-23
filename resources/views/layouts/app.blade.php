@@ -51,7 +51,7 @@
     @stack('css')
 </head>
 
-<body class="hold-transition sidebar-mini layout-fixed">
+<body class="sidebar-mini layout-fixed layout-footer-fixed">
     <div class="wrapper">
 
         <!-- Preloader -->

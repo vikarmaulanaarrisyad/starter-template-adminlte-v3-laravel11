@@ -1,4 +1,4 @@
-<aside class="main-sidebar sidebar-light-primary elevation-4">
+<aside class="main-sidebar elevation-4 sidebar-light-info">
     <!-- Brand Logo -->
     <a href="{{ url('/') }}" class="brand-link">
         <img src="{{ Storage::url($setting->path_image ?? '') }}" alt="Logo"
@@ -26,10 +26,10 @@
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">
-            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
-                data-accordion="false">
-                <!-- Add icons to the links using the .nav-icon class
-                with font-awesome or any other icon font library -->
+            <ul class="nav nav-pills nav-sidebar flex-column text-sm nav-child-indent" data-widget="treeview"
+                role="menu" data-accordion="false">
+                <li class="nav-header">MENU</li>
+
                 <li class="nav-item">
                     <a href="{{ route('dashboard') }}"
                         class="nav-link {{ request()->is('dashboard*') ? 'active' : '' }}">
@@ -39,17 +39,45 @@
                         </p>
                     </a>
                 </li>
-                <li class="nav-header">MASTER</li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link {{ request()->is('page*') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-cube"></i>
+
+                <li class="nav-item {{ request()->is(['role*']) ? 'menu-is-opening menu-open' : '' }}">
+                    <a href="#" class="nav-link {{ request()->is(['role*']) ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-cog"></i>
                         <p>
-                            Page
+                            Konfigurasi
+                            <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
+                    <ul class="nav nav-treeview" style="{{ request()->is(['role*']) ? 'display: block' : 'none' }}">
+                        <li class="nav-item">
+                            <a href="{{ route('role.index') }}"
+                                class="nav-link {{ request()->is(['role*']) ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Role</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="pages/forms/advanced.html" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Permission</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="pages/forms/editors.html" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Akses Role</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="pages/forms/validation.html" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>User</p>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
 
-                <li class="nav-header">REPORT</li>
+
                 <li class="nav-item">
                     <a href="#" class="nav-link {{ request()->is('report*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-file-pdf"></i>
@@ -59,7 +87,6 @@
                     </a>
                 </li>
 
-                <li class="nav-header">PENGATURAN APLIKASI</li>
                 <li class="nav-item">
                     <a href="{{ route('setting.index') }}"
                         class="nav-link {{ request()->is('setting*') ? 'active' : '' }}">

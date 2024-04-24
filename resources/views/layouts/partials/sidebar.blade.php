@@ -40,8 +40,8 @@
                     </a>
                 </li>
 
-                <li class="nav-item {{ request()->is(['role*']) ? 'menu-is-opening menu-open' : '' }}">
-                    <a href="#" class="nav-link {{ request()->is(['role*']) ? 'active' : '' }}">
+                <li class="nav-item {{ request()->is(['role*', 'permission*']) ? 'menu-is-opening menu-open' : '' }}">
+                    <a href="#" class="nav-link {{ request()->is(['role*', 'permission*']) ? 'active' : '' }}">
                         <i class="nav-icon fas fa-cog"></i>
                         <p>
                             Konfigurasi
@@ -57,7 +57,8 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="pages/forms/advanced.html" class="nav-link">
+                            <a href="{{ route('permission.index') }}"
+                                class="nav-link {{ request()->is('permission*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Permission</p>
                             </a>

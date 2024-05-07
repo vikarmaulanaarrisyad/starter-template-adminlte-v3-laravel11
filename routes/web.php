@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\{
+    AksesRoleController,
     DashboardController,
     PermissionController,
     RoleController,
@@ -34,8 +35,10 @@ Route::controller(PermissionController::class)->group(function () {
     Route::delete('/permission/{permission}/destroy', 'destroy')->name('permission.destroy');
 });
 
-
-
+Route::controller(AksesRoleController::class)->group(function () {
+    Route::get('/aksesrole/data', 'data')->name('aksesrole.data');
+    Route::get('/aksesrole', 'index')->name('aksesrole.index');
+});
 
 Route::controller(SettingController::class)->group(function () {
     Route::get('/setting', 'index')->name('setting.index');

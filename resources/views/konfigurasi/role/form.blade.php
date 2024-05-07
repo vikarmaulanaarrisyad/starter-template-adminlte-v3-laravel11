@@ -1,4 +1,4 @@
-<x-modal data-backdrop="static" data-keyboard="false" size="modal-md">
+<x-modal data-backdrop="static" data-keyboard="false" size="modal-lg">
     <x-slot name="title">
         Tambah
     </x-slot>
@@ -14,6 +14,35 @@
             </div>
         </div>
     </div>
+
+    <div class="row">
+        <div class="col-lg-12 col-md-12">
+            <p>SELECT PERMISSIONS</p>
+        </div>
+    </div>
+
+    @if ($permissionGroups->count())
+        <div class="row">
+            @foreach ($permissionGroups as $permissionGroup)
+                <div class="col-lg-4 col-md-4 col-4">
+                    <div class="form-check">
+                        <h5>{{ $permissionGroup->name }}</h5>
+                        @if ($permissionGroup->permissions->count())
+                            @foreach ($permissionGroup->permissions as $permission)
+                                <input value="{{ $permission->id }}" id="permission_ids_{{ $permission->id }}"
+                                    class="form-check-input" type="checkbox" name="permission_ids[]">
+                                <label for="permission_ids_{{ $permission->id }}"
+                                    class="form-check-label">{{ $permission->name }}</label>
+                                <br>
+                            @endforeach
+                        @endif
+                    </div>
+                </div>
+            @endforeach
+        </div>
+    @endif
+
+
 
     <x-slot name="footer">
         <button type="button" onclick="submitForm(this.form)" class="btn btn-sm btn-outline-info" id="submitBtn">

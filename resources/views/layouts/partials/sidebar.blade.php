@@ -40,8 +40,10 @@
                     </a>
                 </li>
 
-                <li class="nav-item {{ request()->is(['role*', 'permission*']) ? 'menu-is-opening menu-open' : '' }}">
-                    <a href="#" class="nav-link {{ request()->is(['role*', 'permission*']) ? 'active' : '' }}">
+                <li
+                    class="nav-item {{ request()->is(['role*', 'permission*', 'aksesrole*']) ? 'menu-is-opening menu-open' : '' }}">
+                    <a href="#"
+                        class="nav-link {{ request()->is(['role*', 'permission*', 'aksesrole*']) ? 'active' : '' }}">
                         <i class="nav-icon fas fa-cog"></i>
                         <p>
                             Konfigurasi
@@ -64,7 +66,8 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="pages/forms/editors.html" class="nav-link">
+                            <a href="{{ route('aksesrole.index') }}"
+                                class="nav-link {{ request()->is('aksesrole*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Akses Role</p>
                             </a>

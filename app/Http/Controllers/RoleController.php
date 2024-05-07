@@ -2,15 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PermissionGroup;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 class RoleController extends Controller
 {
     public function index()
     {
-        return view('konfigurasi.role.index');
+        $permissionGroups = PermissionGroup::with('permissions')->get();
+
+        return view('konfigurasi.role.index', compact('permissionGroups'));
     }
 
     public function data()
@@ -32,32 +37,43 @@ class RoleController extends Controller
 
     public function store(Request $request)
     {
-        $rules = [
+        $validator = Validator::make($request->all(), [
             'name' => 'required|unique:roles',
-        ];
-
-        $validator = Validator::make($request->all(), $rules);
+            'permission_ids' => 'required|array',
+            'permission_ids.*' => 'exists:permissions,id', // Check if each permission ID exists
+        ]);
 
         if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors(), 'message' => 'Maaf inputan yang anda masukan salah, silahkan periksa kembali dan coba lagi'], 422);
+            return response()->json(['errors' => $validator->errors(), 'message' => 'Validation failed'], 422);
         }
 
-        $data = [
-            'name' => $request->name,
-        ];
+        try {
+            DB::beginTransaction();
 
-        $role = Role::create($data);
+            // Create the role
+            $role = Role::create(['name' => $request->name]);
 
-        return response()->json(['message' => 'Role berhasil ditambahkan', 'data' => $role], 200);
+            // Sync permissions only if they exist for the 'web' guard
+            $role->syncPermissions(Permission::where('guard_name', 'web')->whereIn('id', $request->permission_ids)->pluck('id')->toArray());
+
+            DB::commit();
+
+            return response()->json(['message' => 'Role successfully added', 'data' => $role], 200);
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json(['message' => 'Failed to add role', 'error' => $e->getMessage()], 500);
+        }
     }
 
     public function detail(Role $role)
     {
+        $role->load('permissions');
         return response()->json(['data' => $role]);
     }
 
     public function edit(Role $role)
     {
+        $role->load('permissions');
         return response()->json(['data' => $role]);
     }
 
@@ -65,6 +81,8 @@ class RoleController extends Controller
     {
         $rules = [
             'name' => 'required|unique:roles,name,' . $role->id, // Ubah menjadi $role->id
+            'permission_ids' => 'required|array',
+            'permission_ids.*' => 'exists:permissions,id', // Check if each permission ID exists
         ];
 
         $validator = Validator::make($request->all(), $rules);
@@ -77,14 +95,27 @@ class RoleController extends Controller
             'name' => $request->name,
         ];
 
-        $role->update($data);
+        try {
+            DB::beginTransaction();
 
-        return response()->json(['message' => 'Role berhasil diupdate', 'data' => $role], 200);
+            $role->update($data);
+
+            // Sync permissions only if they exist for the 'web' guard
+            $role->syncPermissions(Permission::where('guard_name', 'web')->whereIn('id', $request->permission_ids)->pluck('id')->toArray());
+
+            DB::commit();
+
+            return response()->json(['message' => 'Role berhasil disimpan', 'data' => $role], 200);
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json(['message' => 'Something went wrong', 'error' => $e->getMessage()], 500);
+        }
     }
 
 
     public function destroy(Role $role)
     {
+        $role->syncPermissions();
         $role->delete();
 
         return response()->json(['message' => 'Role berhasil dihapus'], 200);

@@ -10,13 +10,13 @@
             $('#spinner-border').hide();
         });
 
-        table = $('#roleTable').DataTable({
+        table = $('#aksesRoleTable').DataTable({
             processing: false,
             serverSide: true,
             autoWidth: false,
             responsive: true,
             ajax: {
-                url: '{{ route('role.data') }}',
+                url: '{{ route('aksesrole.data') }}',
             },
             columns: [{
                     data: 'DT_RowIndex',
@@ -41,57 +41,16 @@
             ]
         });
 
-        function addFormRole(url, title = 'Form Tambah Role') {
+        function dataAksesRole(url, title = 'Edit Role') {
             $(modal).modal('show');
             $(`${modal} .modal-title`).text(title);
-            $(`${modal} form`).attr('action', url);
-            $(`${modal} [name=_method]`).val('POST');
+            $(`${modal} form`).attr('action', `${url}/update`);
+            $(`${modal} [name=_method]`).val('PUT');
             $(`${modal} #name`).prop('disabled', false);
-            $('#spinner-border').hide();
-
-            $(button).show();
-            $(button).prop('disabled', false);
-
-            resetForm(`${modal} form`);
+            $(`${modal} #submitBtn`).show();
         }
 
-        function detailDataRole(url, title = 'Detail Role') {
-            $.ajax({
-                url: url,
-                dataType: 'JSON',
-                type: 'GET',
-                success: function(response) {
-                    $(modal).modal('show');
-                    $(`${modal} .modal-title`).text(title);
-                    $(`${modal} form`).attr('action', url);
-                    $(`${modal} [name=_method]`).val('PUT');
-                    $(`${modal} #submitBtn`).hide();
-                    $(`${modal} #name`).prop('disabled', true);
-
-                    resetForm(`${modal} form`);
-                    loopForm(response.data);
-
-                    // Check and mark the corresponding checkboxes based on permission IDs
-                    if (response.data.permissions) {
-                        // Misalnya, jika ID permission berada di dalam objek permissions
-                        response.data.permissions.forEach(permission => {
-                            $(`#permission_ids_${permission.id}`).prop('checked', true);
-                        });
-                    }
-                },
-                error: function(errors) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Opps! Gagal',
-                        text: errors.responseJSON.message,
-                        showConfirmButton: true,
-                    });
-                }
-            });
-        }
-
-
-        function editDataRole(url, title = 'Edit Role') {
+        function editDataAksesRole(url, idRole, title = 'Edit Role') {
             $.ajax({
                 url: url,
                 type: 'GET', // Ubah metode menjadi GET untuk mendapatkan data peran
@@ -99,22 +58,13 @@
                 success: function(response) {
                     $(modal).modal('show');
                     $(`${modal} .modal-title`).text(title);
-                    $(`${modal} form`).attr('action',
-                        `${url}/update`); // Gunakan URL update untuk aksi formulir
+                    $(`${modal} form`).attr('action', `${url}/update`);
                     $(`${modal} [name=_method]`).val('PUT');
                     $(`${modal} #name`).prop('disabled', false);
                     $(`${modal} #submitBtn`).show();
 
                     resetForm(`${modal} form`);
                     loopForm(response.data);
-
-                    // Check and mark the corresponding checkboxes based on permission IDs
-                    if (response.data.permissions) {
-                        // Misalnya, jika ID permission berada di dalam objek permissions
-                        response.data.permissions.forEach(permission => {
-                            $(`#permission_ids_${permission.id}`).prop('checked', true);
-                        });
-                    }
                 },
                 error: function(xhr, status, error) {
                     var errorMessage = xhr.status + ': ' + xhr.statusText;

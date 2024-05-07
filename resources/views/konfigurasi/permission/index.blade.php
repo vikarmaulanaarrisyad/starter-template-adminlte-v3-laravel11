@@ -22,7 +22,7 @@
                     <x-slot name="thead">
                         <th>No</th>
                         <th>Name</th>
-                        <th>Guard Name</th>
+                        <th>Group</th>
                         <th>Action</th>
                     </x-slot>
                 </x-table>

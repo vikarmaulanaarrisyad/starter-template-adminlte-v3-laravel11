@@ -29,8 +29,8 @@
                     name: 'name'
                 },
                 {
-                    data: 'guard_name',
-                    name: 'guard_name'
+                    data: 'permission_group',
+                    name: 'permission_group'
                 },
                 {
                     data: 'action',

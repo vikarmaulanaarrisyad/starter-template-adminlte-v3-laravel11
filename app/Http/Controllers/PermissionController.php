@@ -22,6 +22,9 @@ class PermissionController extends Controller
 
         return datatables($query)
             ->addIndexColumn()
+            ->addColumn('permission_group', function ($query) {
+                return $query->permission_group->name;
+            })
             ->addColumn('action', function ($query) {
                 return '
                     <button onclick="detailDataPermission(`' . route('permission.detail', $query->id) . '`)" class="btn btn-info"><i class="fas fa-eye"></i></button>

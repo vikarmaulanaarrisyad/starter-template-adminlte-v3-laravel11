@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\PermissionGroup;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class PermissionGroupController extends Controller
@@ -20,11 +21,21 @@ class PermissionGroupController extends Controller
         return datatables($query)
             ->addIndexColumn()
             ->addColumn('action', function ($query) {
-                return '
-                    <button onclick="detailDataPermissionGroups(`' . route('permissiongroups.detail', $query->id) . '`)" class="btn btn-info"><i class="fas fa-eye"></i></button>
-                    <button onclick="editDataPermissionGroups(`' . route('permissiongroups.edit', $query->id) . '`)" class="btn btn-primary"><i class="fas fa-pencil-alt"></i></button>
-                    <button onclick="deleteDataPermissionGroups(`' . route('permissiongroups.destroy', $query->id) . '`, `' . $query->name . '`)" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
-                ';
+                $aksi = '';
+
+                if (Auth::user()->hasPermissionTo('Group Permission Edit')) {
+                    $aksi .= '<button onclick="editDataPermissionGroups(`' . route('permissiongroups.edit', $query->id) . '`)" class="btn btn-primary"><i class="fas fa-pencil-alt"></i></button>';
+                }
+
+                if (Auth::user()->hasPermissionTo('Group Permission Show')) {
+                    $aksi .= '<button onclick="detailDataPermissionGroups(`' . route('permissiongroups.detail', $query->id) . '`)" class="btn btn-info"><i class="fas fa-eye"></i></button>';
+                }
+
+                if (Auth::user()->hasPermissionTo('Group Permission Delete')) {
+                    $aksi .= '<button onclick="deleteDataPermissionGroups(`' . route('permissiongroups.destroy', $query->id) . '`, `' . $query->name . '`)" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>';
+                }
+
+                return $aksi;
             })
             ->escapeColumns([])
             ->make(true);

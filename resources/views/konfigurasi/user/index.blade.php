@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
-@section('title', 'Akses Role')
+@section('title', 'Data Pengguna')
 
 @section('breadcrumb')
     @parent
-    <li class="breadcrumb-item active">Akses Role</li>
+    <li class="breadcrumb-item active">Data Pengguna</li>
 @endsection
 
 @section('content')
@@ -12,21 +12,21 @@
         <div class="col-lg-12 col-md-12 col-12">
             <x-card>
                 <x-slot name="header">
-                    Akses Role
+                    Daftar Pengguna
                 </x-slot>
 
-                <x-table id="aksesRoleTable" class="aksesRoleTable" style="width: 100%">
+                <x-table id="userTable" class="userTable" style="width: 100%">
                     <x-slot name="thead">
                         <th>No</th>
                         <th>Name</th>
-                        <th>Guard Name</th>
+                        <th>Email</th>
                         <th>Action</th>
                     </x-slot>
                 </x-table>
             </x-card>
         </div>
     </div>
-    @include('konfigurasi.aksesrole.form')
+    @include('konfigurasi.user.form')
 @endsection
 
-@include('konfigurasi.aksesrole.scripts')
+@include('konfigurasi.user.scripts')

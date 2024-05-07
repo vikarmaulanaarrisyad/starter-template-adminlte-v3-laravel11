@@ -11,11 +11,13 @@
     <div class="row">
         <div class="col-lg-12 col-md-12 col-12">
             <x-card>
-                <x-slot name="header">
-                    <button onclick="addFormRole(`{{ route('role.store') }}`)" class="btn btn-sm btn-info"><i
-                            class="fas fa-plus-circle"></i>
-                        Tambah Data</button>
-                </x-slot>
+                @can('Role Store')
+                    <x-slot name="header">
+                        <button onclick="addFormRole(`{{ route('role.store') }}`)" class="btn btn-sm btn-info"><i
+                                class="fas fa-plus-circle"></i>
+                            Tambah Data</button>
+                    </x-slot>
+                @endcan
 
                 <x-table id="roleTable" class="roleTable" style="width: 100%">
                     <x-slot name="thead">

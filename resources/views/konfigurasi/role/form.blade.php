@@ -26,7 +26,7 @@
             @foreach ($permissionGroups as $permissionGroup)
                 <div class="col-lg-4 col-md-4 col-4 mb-4">
                     <div class="form-check">
-                        <h5>{{ $permissionGroup->name }}</h5>
+                        <h5 class="text-bold">{{ $permissionGroup->name }}</h5>
                         @if ($permissionGroup->permissions->count())
                             @foreach ($permissionGroup->permissions as $permission)
                                 <input value="{{ $permission->id }}" id="permission_ids_{{ $permission->id }}"

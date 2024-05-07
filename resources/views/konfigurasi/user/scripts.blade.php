@@ -10,13 +10,13 @@
             $('#spinner-border').hide();
         });
 
-        table = $('#aksesRoleTable').DataTable({
+        table = $('#userTable').DataTable({
             processing: false,
             serverSide: true,
             autoWidth: false,
             responsive: true,
             ajax: {
-                url: '{{ route('aksesrole.data') }}',
+                url: '{{ route('users.data') }}',
             },
             columns: [{
                     data: 'DT_RowIndex',
@@ -29,8 +29,8 @@
                     name: 'name'
                 },
                 {
-                    data: 'guard_name',
-                    name: 'guard_name'
+                    data: 'email',
+                    name: 'email'
                 },
                 {
                     data: 'action',
@@ -41,7 +41,7 @@
             ]
         });
 
-        function dataAksesRole(url, title = 'Edit Role') {
+        function dataUser(url, title = 'Edit User') {
             $(modal).modal('show');
             $(`${modal} .modal-title`).text(title);
             $(`${modal} form`).attr('action', `${url}/update`);
@@ -50,7 +50,7 @@
             $(`${modal} #submitBtn`).show();
         }
 
-        function editDataAksesRole(url, idRole, title = 'Edit Role') {
+        function editDataUser(url, idUser, title = 'Edit User') {
             $.ajax({
                 url: url,
                 type: 'GET', // Ubah metode menjadi GET untuk mendapatkan data peran
@@ -79,7 +79,7 @@
         }
 
 
-        function deleteDataRole(url, name, title = 'Delete Role') {
+        function deleteDataUser(url, name, title = 'Delete User') {
             const swalWithBootstrapButtons = Swal.mixin({
                 customClass: {
                     confirmButton: 'btn btn-success',

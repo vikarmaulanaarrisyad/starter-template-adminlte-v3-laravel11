@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\PermissionGroup;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Spatie\Permission\Models\Permission;
@@ -25,11 +26,21 @@ class RoleController extends Controller
         return datatables($query)
             ->addIndexColumn()
             ->addColumn('action', function ($query) {
-                return '
-                    <button onclick="detailDataRole(`' . route('role.detail', $query->id) . '`)" class="btn btn-info"><i class="fas fa-eye"></i></button>
-                    <button onclick="editDataRole(`' . route('role.edit', $query->id) . '`)" class="btn btn-primary"><i class="fas fa-pencil-alt"></i></button>
-                    <button onclick="deleteDataRole(`' . route('role.destroy', $query->id) . '`, `' . $query->name . '`)" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
-                ';
+                $aksi = '';
+
+                if (Auth::user()->hasPermissionTo('Role Show')) {
+                    $aksi .= '<button onclick="detailDataRole(`' . route('role.detail', $query->id) . '`)" class="btn mr-1 btn-info"><i class="fas fa-eye"></i></button>';
+                }
+
+                if (Auth::user()->hasPermissionTo('Role Edit')) {
+                    $aksi .= '<button onclick="editDataRole(`' . route('role.edit', $query->id) . '`)" class="btn mr-1 btn-primary"><i class="fas fa-pencil-alt"></i></button>';
+                }
+
+                if (Auth::user()->hasPermissionTo('Role Delete')) {
+                    $aksi .= '<button onclick="deleteDataRole(`' . route('role.destroy', $query->id) . '`, `' . $query->name . '`)" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>';
+                }
+
+                return $aksi;
             })
             ->escapeColumns([])
             ->make(true);

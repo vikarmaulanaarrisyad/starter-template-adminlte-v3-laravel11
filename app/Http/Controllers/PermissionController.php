@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\PermissionGroup;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Spatie\Permission\Models\Permission;
@@ -26,11 +27,27 @@ class PermissionController extends Controller
                 return $query->permission_group->name;
             })
             ->addColumn('action', function ($query) {
-                return '
+                $aksi = '';
+
+                if (Auth::user()->hasPermissionTo('Permission Show')) {
+                    $aksi .= '
                     <button onclick="detailDataPermission(`' . route('permission.detail', $query->id) . '`)" class="btn btn-info"><i class="fas fa-eye"></i></button>
+                    ';
+                }
+
+                if (Auth::user()->hasPermissionTo('Permission Edit')) {
+                    $aksi .= '
                     <button onclick="editDataPermission(`' . route('permission.edit', $query->id) . '`)" class="btn btn-primary"><i class="fas fa-pencil-alt"></i></button>
+                    ';
+                }
+
+                if (Auth::user()->hasPermissionTo('Permission Delete')) {
+                    $aksi .= '
                     <button onclick="deleteDataPermission(`' . route('permission.destroy', $query->id) . '`, `' . $query->name . '`)" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
-                ';
+                    ';
+                }
+
+                return $aksi;
             })
             ->escapeColumns([])
             ->make(true);

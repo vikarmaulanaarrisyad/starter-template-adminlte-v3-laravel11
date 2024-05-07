@@ -28,7 +28,7 @@
             <ul class="nav nav-pills nav-sidebar flex-column text-sm nav-child-indent" data-widget="treeview"
                 role="menu" data-accordion="false">
                 <li class="nav-header">MENU</li>
-                @can('dashboard_index')
+                @can('Dashboard Index')
                     <li class="nav-item">
                         <a href="{{ route('dashboard') }}" class="nav-link">
                             <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -39,7 +39,7 @@
                     </li>
                 @endcan
 
-                @can('konfigurasi_index')
+                @can('Konfigurasi Index')
                     <li class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-cog"></i>
@@ -49,16 +49,16 @@
                             </p>
                         </a>
                         <ul class="nav nav-treeview" style="display: none">
-                            @can('user_index')
+                            @can('User Index')
                                 <li class="nav-item">
-                                    <a href="pages/forms/validation.html" class="nav-link">
+                                    <a href="{{ route('users.index') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>User</p>
                                     </a>
                                 </li>
                             @endcan
 
-                            @can('role_index')
+                            @can('Role Index')
                                 <li class="nav-item">
                                     <a href="{{ route('role.index') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
@@ -67,7 +67,7 @@
                                 </li>
                             @endcan
 
-                            @can('permission_index')
+                            @can('Permission Index')
                                 <li class="nav-item">
                                     <a href="{{ route('permission.index') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
@@ -76,7 +76,7 @@
                                 </li>
                             @endcan
 
-                            @can('group_permission_index')
+                            @can('Group Permission Index')
                                 <li class="nav-item">
                                     <a href="{{ route('permissiongroups.index') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
@@ -87,7 +87,7 @@
                         </ul>
                     </li>
                 @endcan
-                @can('pengaturan_index')
+                @can('Pengaturan Index')
                     <li class="nav-item">
                         <a href="{{ route('setting.index') }}"
                             class="nav-link {{ request()->is('setting*') ? 'active' : '' }}">

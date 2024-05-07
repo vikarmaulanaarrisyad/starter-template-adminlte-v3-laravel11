@@ -15,31 +15,99 @@ class PermissionTableSeeder extends Seeder
     {
         $permissions = [
             [
-                'name' => 'dashboard_index',
+                'name' => 'Dashboard Index',
                 'permission_group_id' => PermissionGroup::where('name', 'Dashboard')->first()->id,
             ],
             [
-                'name' => 'konfigurasi_index',
+                'name' => 'Konfigurasi Index',
                 'permission_group_id' => PermissionGroup::where('name', 'Konfigurasi')->first()->id,
             ],
             [
-                'name' => 'user_index',
+                'name' => 'User Index',
                 'permission_group_id' => PermissionGroup::where('name', 'User')->first()->id,
             ],
             [
-                'name' => 'role_index',
+                'name' => 'User Edit',
+                'permission_group_id' => PermissionGroup::where('name', 'User')->first()->id,
+            ],
+            [
+                'name' => 'User Update',
+                'permission_group_id' => PermissionGroup::where('name', 'User')->first()->id,
+            ],
+            [
+                'name' => 'User Delete',
+                'permission_group_id' => PermissionGroup::where('name', 'User')->first()->id,
+            ],
+            [
+                'name' => 'Role Index',
                 'permission_group_id' => PermissionGroup::where('name', 'Role')->first()->id,
             ],
             [
-                'name' => 'permission_index',
+                'name' => 'Role Store',
+                'permission_group_id' => PermissionGroup::where('name', 'Role')->first()->id,
+            ],
+            [
+                'name' => 'Role Edit',
+                'permission_group_id' => PermissionGroup::where('name', 'Role')->first()->id,
+            ],
+            [
+                'name' => 'Role Show',
+                'permission_group_id' => PermissionGroup::where('name', 'Role')->first()->id,
+            ],
+            [
+                'name' => 'Role Update',
+                'permission_group_id' => PermissionGroup::where('name', 'Role')->first()->id,
+            ],
+            [
+                'name' => 'Role Delete',
+                'permission_group_id' => PermissionGroup::where('name', 'Role')->first()->id,
+            ],
+            [
+                'name' => 'Permission Index',
                 'permission_group_id' => PermissionGroup::where('name', 'Permission')->first()->id,
             ],
             [
-                'name' => 'group_permission_index',
+                'name' => 'Permission Store',
+                'permission_group_id' => PermissionGroup::where('name', 'Permission')->first()->id,
+            ],
+            [
+                'name' => 'Permission Show',
+                'permission_group_id' => PermissionGroup::where('name', 'Permission')->first()->id,
+            ],
+            [
+                'name' => 'Permission Edit',
+                'permission_group_id' => PermissionGroup::where('name', 'Permission')->first()->id,
+            ],
+            [
+                'name' => 'Permission Update',
+                'permission_group_id' => PermissionGroup::where('name', 'Permission')->first()->id,
+            ],
+            [
+                'name' => 'Permission Delete',
+                'permission_group_id' => PermissionGroup::where('name', 'Permission')->first()->id,
+            ],
+            [
+                'name' => 'Group Permission Index',
                 'permission_group_id' => PermissionGroup::where('name', 'Group Permission')->first()->id,
             ],
             [
-                'name' => 'pengaturan_index',
+                'name' => 'Group Permission Store',
+                'permission_group_id' => PermissionGroup::where('name', 'Group Permission')->first()->id,
+            ],
+            [
+                'name' => 'Group Permission Edit',
+                'permission_group_id' => PermissionGroup::where('name', 'Group Permission')->first()->id,
+            ],
+            [
+                'name' => 'Group Permission Update',
+                'permission_group_id' => PermissionGroup::where('name', 'Group Permission')->first()->id,
+            ],
+            [
+                'name' => 'Group Permission Delete',
+                'permission_group_id' => PermissionGroup::where('name', 'Group Permission')->first()->id,
+            ],
+            [
+                'name' => 'Pengaturan Index',
                 'permission_group_id' => PermissionGroup::where('name', 'Pengaturan')->first()->id,
             ],
 

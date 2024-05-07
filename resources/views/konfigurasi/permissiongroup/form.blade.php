@@ -8,23 +8,9 @@
     <div class="row">
         <div class="col-md-12 col-12">
             <div class="form-group">
-                <label for="">Nama Permission</label>
-                <input type="text" class="form-control" name="name" id="name" placeholder="Masukkan permission"
+                <label for="">Nama Group</label>
+                <input type="text" class="form-control" name="name" id="name" placeholder="Nama Group"
                     autocomplete="off">
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-lg-12 col-md-12">
-            <div class="form-group">
-                <label for="permission_group_id">Group</label>
-                <select id="permission_group_id" class="form-control" name="permission_group_id">
-                    <option value="" disabled selected>Pilih Group</option>
-                    @foreach ($permissionGroups as $item)
-                        <option value="{{ $item->id }}">{{ $item->name }}</option>
-                    @endforeach
-                </select>
             </div>
         </div>
     </div>

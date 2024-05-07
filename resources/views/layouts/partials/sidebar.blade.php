@@ -41,9 +41,9 @@
                 </li>
 
                 <li
-                    class="nav-item {{ request()->is(['role*', 'permission*', 'aksesrole*']) ? 'menu-is-opening menu-open' : '' }}">
+                    class="nav-item {{ request()->is(['role*', 'permissions', 'permissiongroups']) ? 'menu-is-opening menu-open' : '' }}">
                     <a href="#"
-                        class="nav-link {{ request()->is(['role*', 'permission*', 'aksesrole*']) ? 'active' : '' }}">
+                        class="nav-link {{ request()->is(['role*', 'permissions', 'permissiongroups']) ? 'active' : '' }}">
                         <i class="nav-icon fas fa-cog"></i>
                         <p>
                             Konfigurasi
@@ -51,6 +51,12 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview" style="{{ request()->is(['role*']) ? 'display: block' : 'none' }}">
+                        <li class="nav-item">
+                            <a href="pages/forms/validation.html" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>User</p>
+                            </a>
+                        </li>
                         <li class="nav-item">
                             <a href="{{ route('role.index') }}"
                                 class="nav-link {{ request()->is(['role*']) ? 'active' : '' }}">
@@ -60,24 +66,20 @@
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('permission.index') }}"
-                                class="nav-link {{ request()->is('permission*') ? 'active' : '' }}">
+                                class="nav-link {{ request()->is('permissions*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Permission</p>
                             </a>
                         </li>
+
                         <li class="nav-item">
-                            <a href="{{ route('aksesrole.index') }}"
-                                class="nav-link {{ request()->is('aksesrole*') ? 'active' : '' }}">
+                            <a href="{{ route('permissiongroups.index') }}"
+                                class="nav-link {{ request()->is('permissiongroups') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Akses Role</p>
+                                <p>Group Permission</p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="pages/forms/validation.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>User</p>
-                            </a>
-                        </li>
+
                     </ul>
                 </li>
 

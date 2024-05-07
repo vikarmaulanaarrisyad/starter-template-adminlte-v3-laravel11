@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PermissionGroup;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Spatie\Permission\Models\Permission;
 
@@ -10,7 +12,8 @@ class PermissionController extends Controller
 {
     public function index()
     {
-        return view('konfigurasi.permission.index');
+        $permissionGroups = PermissionGroup::all();
+        return view('konfigurasi.permission.index', compact('permissionGroups'));
     }
 
     public function data()
@@ -33,7 +36,8 @@ class PermissionController extends Controller
     public function store(Request $request)
     {
         $rules = [
-            'name' => 'required|unique:permissions',
+            'name' => 'required|unique:permissions,name,NULL,id,permission_group_id,' . $request->permission_group_id,
+            'permission_group_id' => 'required|exists:permission_groups,id',
         ];
 
         $validator = Validator::make($request->all(), $rules);
@@ -42,13 +46,20 @@ class PermissionController extends Controller
             return response()->json(['errors' => $validator->errors(), 'message' => 'Maaf inputan yang anda masukan salah, silahkan periksa kembali dan coba lagi'], 422);
         }
 
-        $data = [
-            'name' => $request->name,
-        ];
+        try {
+            DB::beginTransaction();
 
-        $permissions = Permission::create($data);
+            $permissionGroup = PermissionGroup::findOrFail($request->permission_group_id);
 
-        return response()->json(['message' => 'Permission berhasil ditambahkan', 'data' => $permissions], 200);
+            $permissions = Permission::create(['name' => $request->name, 'permission_group_id' => $permissionGroup->id]);
+
+            DB::commit();
+
+            return response()->json(['message' => 'Permission berhasil ditambahkan', 'data' => $permissions], 200);
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json(['message' => 'Something went wrong', 'error' => $e->getMessage()], 500);
+        }
     }
 
     public function detail(Permission $permission)

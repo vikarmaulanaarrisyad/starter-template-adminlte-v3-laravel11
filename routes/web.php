@@ -4,6 +4,7 @@ use App\Http\Controllers\{
     AksesRoleController,
     DashboardController,
     PermissionController,
+    PermissionGroupController,
     RoleController,
     SettingController
 };
@@ -26,13 +27,24 @@ Route::controller(RoleController::class)->group(function () {
 });
 
 Route::controller(PermissionController::class)->group(function () {
-    Route::get('/permission/data', 'data')->name('permission.data');
-    Route::get('/permission', 'index')->name('permission.index');
-    Route::get('/permission/{permission}/detail', 'detail')->name('permission.detail');
-    Route::get('/permission/{permission}', 'edit')->name('permission.edit');
-    Route::put('/permission/{permission}/update', 'update')->name('permission.update');
-    Route::post('/permission', 'store')->name('permission.store');
-    Route::delete('/permission/{permission}/destroy', 'destroy')->name('permission.destroy');
+    Route::get('/permissions/data', 'data')->name('permission.data');
+    Route::get('/permissions', 'index')->name('permission.index');
+    Route::get('/permissions/{permission}/detail', 'detail')->name('permission.detail');
+    Route::get('/permissions/{permission}', 'edit')->name('permission.edit');
+    Route::put('/permissions/{permission}/update', 'update')->name('permission.update');
+    Route::post('/permissions', 'store')->name('permission.store');
+    Route::delete('/permissions/{permission}/destroy', 'destroy')->name('permission.destroy');
+});
+
+// route permissionGroup
+Route::controller(PermissionGroupController::class)->group(function () {
+    Route::get('/permissiongroups/data', 'data')->name('permissiongroups.data');
+    Route::get('/permissiongroups', 'index')->name('permissiongroups.index');
+    Route::get('/permissiongroups/{permissionGroup}/detail', 'detail')->name('permissiongroups.detail');
+    Route::get('/permissiongroups/{permissionGroup}', 'edit')->name('permissiongroups.edit');
+    Route::put('/permissiongroups/{permissionGroup}/update', 'update')->name('permissiongroups.update');
+    Route::post('/permissiongroups', 'store')->name('permissiongroups.store');
+    Route::delete('/permissiongroups/{permissionGroup}/destroy', 'destroy')->name('permissiongroups.destroy');
 });
 
 Route::controller(AksesRoleController::class)->group(function () {

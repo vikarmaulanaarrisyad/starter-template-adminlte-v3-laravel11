@@ -24,7 +24,7 @@
     @if ($permissionGroups->count())
         <div class="row">
             @foreach ($permissionGroups as $permissionGroup)
-                <div class="col-lg-4 col-md-4 col-4">
+                <div class="col-lg-4 col-md-4 col-4 mb-4">
                     <div class="form-check">
                         <h5>{{ $permissionGroup->name }}</h5>
                         @if ($permissionGroup->permissions->count())

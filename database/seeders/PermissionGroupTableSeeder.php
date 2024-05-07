@@ -15,11 +15,26 @@ class PermissionGroupTableSeeder extends Seeder
     {
         $permissionGroups = [
             [
-                'name' => 'Country'
+                'name' => 'Dashboard'
             ],
             [
-                'name' => 'State'
-            ]
+                'name' => 'Konfigurasi'
+            ],
+            [
+                'name' => 'User'
+            ],
+            [
+                'name' => 'Role'
+            ],
+            [
+                'name' => 'Permission'
+            ],
+            [
+                'name' => 'Group Permission'
+            ],
+            [
+                'name' => 'Pengaturan'
+            ],
         ];
 
         foreach ($permissionGroups as $permission) {

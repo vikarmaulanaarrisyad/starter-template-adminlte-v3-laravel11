@@ -85,7 +85,9 @@ class PermissionGroupController extends Controller
 
     public function destroy(PermissionGroup $permissionGroup)
     {
+        $permissionGroup->permissions()->delete();
         $permissionGroup->delete();
+
 
         return response()->json(['message' => 'Permission Group berhasil dihapus'], 200);
     }

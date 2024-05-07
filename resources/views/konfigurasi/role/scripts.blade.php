@@ -209,6 +209,7 @@
                             $('#spinner-border').hide();
 
                             table.ajax.reload();
+                            window.location.reload();
                         })
                     }
                 })

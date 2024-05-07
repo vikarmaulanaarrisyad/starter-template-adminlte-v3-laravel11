@@ -15,37 +15,34 @@ class PermissionTableSeeder extends Seeder
     {
         $permissions = [
             [
-                'name' => 'Country Index',
-                'permission_group_id' => PermissionGroup::where('name', 'Country')->first()->id,
+                'name' => 'dashboard_index',
+                'permission_group_id' => PermissionGroup::where('name', 'Dashboard')->first()->id,
             ],
             [
-                'name' => 'Country Create',
-                'permission_group_id' => PermissionGroup::where('name', 'Country')->first()->id,
+                'name' => 'konfigurasi_index',
+                'permission_group_id' => PermissionGroup::where('name', 'Konfigurasi')->first()->id,
             ],
             [
-                'name' => 'Country Update',
-                'permission_group_id' => PermissionGroup::where('name', 'Country')->first()->id,
+                'name' => 'user_index',
+                'permission_group_id' => PermissionGroup::where('name', 'User')->first()->id,
             ],
             [
-                'name' => 'Country Destroy',
-                'permission_group_id' => PermissionGroup::where('name', 'Country')->first()->id,
+                'name' => 'role_index',
+                'permission_group_id' => PermissionGroup::where('name', 'Role')->first()->id,
             ],
             [
-                'name' => 'State Index',
-                'permission_group_id' => PermissionGroup::where('name', 'State')->first()->id,
+                'name' => 'permission_index',
+                'permission_group_id' => PermissionGroup::where('name', 'Permission')->first()->id,
             ],
             [
-                'name' => 'State Create',
-                'permission_group_id' => PermissionGroup::where('name', 'State')->first()->id,
+                'name' => 'group_permission_index',
+                'permission_group_id' => PermissionGroup::where('name', 'Group Permission')->first()->id,
             ],
             [
-                'name' => 'State Update',
-                'permission_group_id' => PermissionGroup::where('name', 'State')->first()->id,
+                'name' => 'pengaturan_index',
+                'permission_group_id' => PermissionGroup::where('name', 'Pengaturan')->first()->id,
             ],
-            [
-                'name' => 'State Destroy',
-                'permission_group_id' => PermissionGroup::where('name', 'State')->first()->id,
-            ],
+
         ];
 
         foreach ($permissions as $value) {

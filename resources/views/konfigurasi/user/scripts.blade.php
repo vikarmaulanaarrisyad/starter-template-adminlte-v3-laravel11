@@ -126,11 +126,23 @@
                     $(`${modal} .modal-title`).text(title);
                     $(`${modal} form`).attr('action', `${url}/update`);
                     $(`${modal} [name=_method]`).val('PUT');
+
                     $(`${modal} #name`).prop('disabled', false);
+                    $(`${modal} #username`).prop('disabled', false);
+                    $(`${modal} #email`).prop('disabled', false);
+                    $(`${modal} #roles`).prop('disabled', false);
                     $(`${modal} #submitBtn`).show();
+                    $(`${modal} #passwordRow`).hide();
 
                     resetForm(`${modal} form`);
                     loopForm(response.data);
+
+                    $('#roles').empty(); // Clear previous options
+                    for (let role of response.data.roles) { // Assuming roles is an array
+                        var option = new Option(role.name, role.id, true, true);
+                        $('#roles').append(option);
+                    }
+                    $('#roles').trigger('change');
                 },
                 error: function(xhr, status, error) {
                     var errorMessage = xhr.status + ': ' + xhr.statusText;

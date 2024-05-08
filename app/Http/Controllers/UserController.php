@@ -56,7 +56,7 @@ class UserController extends Controller
             'username' => 'required',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6',
-            'roles' => 'required|array',
+            'roles' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -77,13 +77,7 @@ class UserController extends Controller
             ]);
 
             $roles = Role::find($request->roles);
-            if ($roles->isEmpty()) {
-                DB::rollback();
-                return response()->json([
-                    'message' => 'One or more roles not found',
-                    'error' => 'Invalid roles provided'
-                ], 404);
-            }
+
 
             $user->assignRole($roles);
 
@@ -110,6 +104,70 @@ class UserController extends Controller
         ]);
     }
 
+    public function edit(Request $request, User $users)
+    {
+        $users->load(['roles']);
+        return response()->json([
+            'data' => $users
+        ]);
+    }
+
+    public function update(Request $request, User $users)
+    {
+        // Pastikan roles adalah sebuah array
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'username' => 'required',
+            'email' => 'required|email|unique:users,email,' . $users->id,
+            'roles' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'errors' => $validator->errors(),
+                'message' => 'Maaf inputan yang anda masukan salah, silahkan periksa kembali dan coba lagi'
+            ], 422);
+        }
+
+        try {
+            DB::beginTransaction();
+
+            $data = [
+                'name' => $request->name,
+                'username' => $request->username,
+                'email' => $request->email,
+            ];
+
+            $users->update($data);
+
+            // Lanjutkan dengan proses update jika roles adalah array
+            $roles = Role::find($request->roles);
+
+            $users->syncRoles($roles);
+
+            DB::commit();
+
+            return response()->json([
+                'message' => 'User berhasil disimpan',
+                'data' => $users
+            ], 200);
+        } catch (\Throwable $th) {
+            DB::rollback();
+            return response()->json([
+                'message' => 'Something went wrong',
+                'error' => $th->getMessage()
+            ], 500);
+        }
+    }
+
+    public function destroy(Request $request, User $users)
+    {
+        $users->delete();
+
+        return response()->json([
+            'message' => 'User berhasil dihapus'
+        ], 200);
+    }
 
     public function roleSearch(Request $request)
     {

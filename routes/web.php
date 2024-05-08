@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\{
-    AksesRoleController,
     DashboardController,
     PermissionController,
     PermissionGroupController,
@@ -59,7 +58,6 @@ Route::group(['middleware' => ['auth']], function () {
     });
 
     Route::group(['middleware' => ['permission:Group Permission Index']], function () {
-        // route permissionGroup
         Route::controller(PermissionGroupController::class)->group(function () {
             Route::get('/permissiongroups/data', 'data')->name('permissiongroups.data');
             Route::get('/permissiongroups', 'index')->name('permissiongroups.index');

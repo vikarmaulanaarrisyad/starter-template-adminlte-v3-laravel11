@@ -12,7 +12,7 @@
     <div class="row">
         <div class="col-lg-12 col-md-12 col-12">
             <x-card>
-                @can('PermissionGroup Store')
+                @can('Group Permission Store')
                     <x-slot name="header">
                         <button onclick="addFormPermissionGroups(`{{ route('permissiongroups.store') }}`)"
                             class="btn btn-sm btn-info"><i class="fas fa-plus-circle"></i>

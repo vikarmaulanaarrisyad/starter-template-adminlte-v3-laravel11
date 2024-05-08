@@ -23,6 +23,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::group(['middleware' => ['permission:User Index']], function () {
         Route::controller(UserController::class)->group(function () {
+            Route::get('/ajax/users/role_search', 'roleSearch')->name('users.role_search');
             Route::get('/users/data', 'data')->name('users.data');
             Route::get('/users', 'index')->name('users.index');
             Route::get('/users/{users}/detail', 'detail')->name('users.detail');

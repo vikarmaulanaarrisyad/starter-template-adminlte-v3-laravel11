@@ -8,9 +8,44 @@
     <div class="row">
         <div class="col-md-12 col-12">
             <div class="form-group">
-                <label for="">Nama</label>
+                <label for="name">Nama</label>
                 <input type="text" class="form-control" name="name" id="name" placeholder="Masukkan nama"
                     autocomplete="off">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-12">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" name="username" id="username"
+                    placeholder="Masukkan username" autocomplete="off">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-12">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" name="email" id="email" placeholder="Masukkan email"
+                    autocomplete="off">
+            </div>
+        </div>
+    </div>
+    <div class="row" id="passwordRow">
+        <div class="col-md-12 col-12">
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" name="password" id="password"
+                    placeholder="Masukkan password" autocomplete="off">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="roles">Role User</label>
+                <select id="roles" class="form-control select2" name="roles"></select>
             </div>
         </div>
     </div>

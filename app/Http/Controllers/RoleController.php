@@ -55,7 +55,7 @@ class RoleController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors(), 'message' => 'Validation failed'], 422);
+            return response()->json(['errors' => $validator->errors(), 'message' => 'Maaf inputan yang anda masukan salah, silahkan periksa kembali dan coba lagi'], 422);
         }
 
         try {
@@ -69,10 +69,10 @@ class RoleController extends Controller
 
             DB::commit();
 
-            return response()->json(['message' => 'Role successfully added', 'data' => $role], 200);
+            return response()->json(['message' => 'Role berhasil disimpan', 'data' => $role], 200);
         } catch (\Exception $e) {
             DB::rollback();
-            return response()->json(['message' => 'Failed to add role', 'error' => $e->getMessage()], 500);
+            return response()->json(['message' => 'Something went wrong', 'error' => $e->getMessage()], 500);
         }
     }
 

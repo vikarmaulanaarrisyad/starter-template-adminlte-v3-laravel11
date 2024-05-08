@@ -1,4 +1,5 @@
 @include('includes.datatable')
+@include('includes.select2')
 
 @push('scripts')
     <script>
@@ -41,16 +42,81 @@
             ]
         });
 
-        function dataUser(url, title = 'Edit User') {
+        $('#roles').select2({
+            placeholder: 'Pilih Role User',
+            theme: 'bootstrap4',
+            closeOnSelect: true,
+            allowClear: true,
+            ajax: {
+                url: '{{ route('users.role_search') }}',
+                processResults: function(data) {
+                    return {
+                        results: data.map(function(item) {
+                            return {
+                                id: item.id,
+                                text: item.name
+                            }
+                        })
+                    }
+                }
+            }
+        });
+
+        function addForm(url, title = 'Form Tambah Data User') {
             $(modal).modal('show');
             $(`${modal} .modal-title`).text(title);
-            $(`${modal} form`).attr('action', `${url}/update`);
-            $(`${modal} [name=_method]`).val('PUT');
+            $(`${modal} form`).attr('action', url);
+            $(`${modal} [name=_method]`).val('post');
+
             $(`${modal} #name`).prop('disabled', false);
+            $(`${modal} #username`).prop('disabled', false);
+            $(`${modal} #email`).prop('disabled', false);
+            $(`${modal} #roles`).prop('disabled', false);
+            $(`${modal} #passwordRow`).show();
             $(`${modal} #submitBtn`).show();
+
+            resetForm(`${modal} form`);
         }
 
-        function editDataUser(url, idUser, title = 'Edit User') {
+        function detailForm(url, title = 'Form Detail User') {
+            $.ajax({
+                url: url,
+                dataType: 'JSON',
+                type: 'GET',
+                success: function(response) {
+                    console.log('roles ', response.data.roles);
+                    $(modal).modal('show');
+                    $(`${modal} .modal-title`).text(title);
+                    $(`${modal} #submitBtn`).hide();
+
+                    $(`${modal} #name`).prop('disabled', true);
+                    $(`${modal} #username`).prop('disabled', true);
+                    $(`${modal} #email`).prop('disabled', true);
+                    $(`${modal} #roles`).prop('disabled', true);
+                    $(`${modal} #passwordRow`).hide();
+
+                    resetForm(`${modal} form`);
+                    loopForm(response.data);
+
+                    $('#roles').empty(); // Clear previous options
+                    for (let role of response.data.roles) { // Assuming roles is an array
+                        var option = new Option(role.name, role.id, true, true);
+                        $('#roles').append(option);
+                    }
+                    $('#roles').trigger('change');
+                },
+                error: function(errors) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Opps! Gagal',
+                        text: errors.responseJSON.message,
+                        showConfirmButton: true,
+                    });
+                }
+            });
+        }
+
+        function editForm(url, idUser, title = 'Form Edit Data User') {
             $.ajax({
                 url: url,
                 type: 'GET', // Ubah metode menjadi GET untuk mendapatkan data peran
@@ -78,8 +144,7 @@
             })
         }
 
-
-        function deleteDataUser(url, name, title = 'Delete User') {
+        function deleteData(url, name, title = 'Delete User') {
             const swalWithBootstrapButtons = Swal.mixin({
                 customClass: {
                     confirmButton: 'btn btn-success',

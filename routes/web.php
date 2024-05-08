@@ -30,6 +30,7 @@ Route::group(['middleware' => ['auth']], function () {
             Route::put('/users/{users}/update', 'update')->name('users.update');
             Route::post('/users', 'store')->name('users.store');
             Route::delete('/users/{users}/destroy', 'destroy')->name('users.destroy');
+            Route::delete('/user/profile', 'show')->name('profile.show');;
         });
     });
 

@@ -28,18 +28,18 @@ class UserController extends Controller
 
                 if (Auth::user()->hasPermissionTo("User Show")) {
                     $aksi .= '
-                        <button onclick="detailForm(`' . route('users.detail', $query->id) . '`)" class="btn btn-info"><i class="fas fa-eye"></i></button>
+                        <button onclick="detailForm(`' . route('users.detail', $query->id) . '`)" class="btn btn-sm btn-info"><i class="fas fa-eye"></i></button>
                     ';
                 }
                 if (Auth::user()->hasPermissionTo("User Edit")) {
                     $aksi .= '
-                        <button onclick="editForm(`' . route('users.edit', $query->id) . '`)" class="btn btn-primary"><i class="fas fa-pencil-alt"></i></button>
+                        <button onclick="editForm(`' . route('users.edit', $query->id) . '`)" class="btn btn-sm btn-primary"><i class="fas fa-pencil-alt"></i></button>
 
                     ';
                 }
                 if (Auth::user()->hasPermissionTo("User Delete")) {
                     $aksi .= '
-                        <button onclick="deleteData(`' . route('users.destroy', $query->id) . '`, `' . $query->name . '`)" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                        <button onclick="deleteData(`' . route('users.destroy', $query->id) . '`, `' . $query->name . '`)" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></button>
                     ';
                 }
 
@@ -78,7 +78,6 @@ class UserController extends Controller
 
             $roles = Role::find($request->roles);
 
-
             $user->assignRole($roles);
 
             DB::commit();
@@ -109,6 +108,14 @@ class UserController extends Controller
         $users->load(['roles']);
         return response()->json([
             'data' => $users
+        ]);
+    }
+
+    public function show(Request $request)
+    {
+        return view('profile.show', [
+            'request' => $request,
+            'user' => $request->user(),
         ]);
     }
 

@@ -27,6 +27,14 @@ class PermissionTableSeeder extends Seeder
                 'permission_group_id' => PermissionGroup::where('name', 'User')->first()->id,
             ],
             [
+                'name' => 'User Store',
+                'permission_group_id' => PermissionGroup::where('name', 'User')->first()->id,
+            ],
+            [
+                'name' => 'User Show',
+                'permission_group_id' => PermissionGroup::where('name', 'User')->first()->id,
+            ],
+            [
                 'name' => 'User Edit',
                 'permission_group_id' => PermissionGroup::where('name', 'User')->first()->id,
             ],

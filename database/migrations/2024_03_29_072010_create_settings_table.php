@@ -32,11 +32,11 @@ return new class extends Migration
             $table->string('province')
                 ->nullable();
             $table->string('path_image')
-                ->nullable();
+                ->nullable()->default('default.jpg');
             $table->string('path_image_header')
-                ->nullable();
+                ->nullable()->default('default.jpg');
             $table->string('path_image_footer')
-                ->nullable();
+                ->nullable()->default('default.jpg');
             $table->string('instagram_link')->default('-')->nullable();
             $table->string('twitter_link')->default('-')->nullable();
             $table->string('fanpage_link')->default('-')->nullable();

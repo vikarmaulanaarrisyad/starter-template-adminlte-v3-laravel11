@@ -4,9 +4,11 @@ namespace App\Actions\Fortify;
 
 use App\Models\User;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Laravel\Fortify\Contracts\UpdatesUserProfileInformation;
+use Illuminate\Support\Facades\Storage;
 
 class UpdateUserProfileInformation implements UpdatesUserProfileInformation
 {
@@ -17,27 +19,33 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
      */
     public function update(User $user, array $input): void
     {
-        Validator::make($input, [
+        $validator = Validator::make($input, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
-            'photo' => ['nullable', 'mimes:jpg,jpeg,png', 'max:1024'],
-        ])->validateWithBag('updateProfileInformation');
+            'path_image' => ['nullable', 'mimes:jpg,jpeg,png', 'max:1024'],
+        ]);
 
-        if (isset($input['photo'])) {
-            $user->updateProfilePhoto($input['photo']);
+        if ($validator->fails()) {
+            back()
+                ->withInput()
+                ->withErrors($validator->errors());
+            return;
         }
 
-        if ($input['email'] !== $user->email &&
-            $user instanceof MustVerifyEmail) {
-            $this->updateVerifiedUser($user, $input);
-        } else {
-            $user->forceFill([
-                'name' => $input['name'],
-                'email' => $input['email'],
-            ])->save();
+        if (isset($input['path_image'])) {
+            // Check if $user['path_image'] is not null or empty before checking existence
+            if (!empty($user['path_image']) && Storage::disk('public')->exists($user['path_image'])) {
+                Storage::disk('public')->delete($user['path_image']);
+            }
+
+            $input['path_image'] = upload('user', $input['path_image'], 'user');
         }
+
+        $user->update($input);
+
+        Session::flash('message', 'Profil berhasil diperbarui');
+        Session::flash('success', true);
     }
-
     /**
      * Update the given verified user's profile information.
      *

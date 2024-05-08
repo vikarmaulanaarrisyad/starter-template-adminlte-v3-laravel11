@@ -31,19 +31,19 @@ class PermissionController extends Controller
 
                 if (Auth::user()->hasPermissionTo('Permission Show')) {
                     $aksi .= '
-                    <button onclick="detailDataPermission(`' . route('permission.detail', $query->id) . '`)" class="btn btn-info"><i class="fas fa-eye"></i></button>
+                    <button onclick="detailDataPermission(`' . route('permission.detail', $query->id) . '`)" class="btn btn-sm btn-info"><i class="fas fa-eye"></i></button>
                     ';
                 }
 
                 if (Auth::user()->hasPermissionTo('Permission Edit')) {
                     $aksi .= '
-                    <button onclick="editDataPermission(`' . route('permission.edit', $query->id) . '`)" class="btn btn-primary"><i class="fas fa-pencil-alt"></i></button>
+                    <button onclick="editDataPermission(`' . route('permission.edit', $query->id) . '`)" class="btn btn-sm btn-primary"><i class="fas fa-pencil-alt"></i></button>
                     ';
                 }
 
                 if (Auth::user()->hasPermissionTo('Permission Delete')) {
                     $aksi .= '
-                    <button onclick="deleteDataPermission(`' . route('permission.destroy', $query->id) . '`, `' . $query->name . '`)" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                    <button onclick="deleteDataPermission(`' . route('permission.destroy', $query->id) . '`, `' . $query->name . '`)" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></button>
                     ';
                 }
 

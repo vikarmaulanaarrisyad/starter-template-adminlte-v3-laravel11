@@ -29,15 +29,15 @@ class RoleController extends Controller
                 $aksi = '';
 
                 if (Auth::user()->hasPermissionTo('Role Show')) {
-                    $aksi .= '<button onclick="detailDataRole(`' . route('role.detail', $query->id) . '`)" class="btn mr-1 btn-info"><i class="fas fa-eye"></i></button>';
+                    $aksi .= '<button onclick="detailDataRole(`' . route('role.detail', $query->id) . '`)" class="btn btn-sm mr-1 btn-info"><i class="fas fa-eye"></i></button>';
                 }
 
                 if (Auth::user()->hasPermissionTo('Role Edit')) {
-                    $aksi .= '<button onclick="editDataRole(`' . route('role.edit', $query->id) . '`)" class="btn mr-1 btn-primary"><i class="fas fa-pencil-alt"></i></button>';
+                    $aksi .= '<button onclick="editDataRole(`' . route('role.edit', $query->id) . '`)" class="btn btn-sm mr-1 btn-primary"><i class="fas fa-pencil-alt"></i></button>';
                 }
 
                 if (Auth::user()->hasPermissionTo('Role Delete')) {
-                    $aksi .= '<button onclick="deleteDataRole(`' . route('role.destroy', $query->id) . '`, `' . $query->name . '`)" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>';
+                    $aksi .= '<button onclick="deleteDataRole(`' . route('role.destroy', $query->id) . '`, `' . $query->name . '`)" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></button>';
                 }
 
                 return $aksi;

@@ -42,7 +42,7 @@
         }
 
         .bg-image {
-            background-image: url('{{ asset('/img/bg-login.jpg') }}');
+            background-image: url('{{ Storage::url($setting->path_image_header) }}');
             background-size: cover;
             background-position: center;
         }
